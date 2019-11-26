@@ -1,0 +1,22 @@
+<style type="text/css">
+	.div1{
+		width: 300px;
+		height: 120px ;
+		border-radius: 10px;
+		border: 1px solid #d9d9d9;
+		font-family: sans-serif;
+		background-color: #f2f2f2;
+		font-size: 14px;
+	}
+</style>
+<div align="center">
+	<div align="center" class="div1">
+		<form>
+			{% csrf_token %}
+			<div>
+				{{ form.as_p }}
+				<input type="submit" value="SignIn">
+			</div>
+		</form>
+	</div>
+</div>
