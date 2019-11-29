@@ -46,4 +46,8 @@ class SignInView(View):
 			return redirect('main')
 		else:
 			return render(request, self.template_name, {'form': form})
+		
+
+class StartView(View):
+	template_name = 'messanger/start.html'
 # Create your views here.
