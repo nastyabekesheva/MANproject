@@ -1,31 +1,15 @@
 {% load static %} 
-{% if title %} 
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<title>Base</title>
+ 	<meta charset="utf-8">
+ 	<link rel="stylesheet" type="text/css" href="../style.css">
+ </head>
+ <body>
+ 	{% block %}
 
-{% else %} 
-
-{% endif %} 
-
-
-{% block nav %} 
-	{% include '' %} 
-{% endblock %}  
-
-
-{% block header %} 
-
-{% endblock %} 
-
-
-{% block content %} 
-
-{% endblock %} 
-
-
-{% block footer %} 
-
-{% endblock %} 
-
-
-{% block js %} 
-
-{% endblock %}
+ 	{% endblock %}
+ 
+ </body>
+ </html>
