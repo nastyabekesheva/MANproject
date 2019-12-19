@@ -17,7 +17,7 @@ class User(models.Model):
 
 
 class Message(models.Model):
-    user = models.OneToOneField(BaseUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
     message = models.TextField(editable="False", default="True")
     date = models.DateTimeField(default=timezone.now)
 
