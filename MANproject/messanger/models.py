@@ -21,7 +21,7 @@ class Message(models.Model):
     messages = models.TextField(editable="False", default="True")
     pub_date = models.DateTimeField(_('Message date'), default=timezone.now)
     is_readed = models.BooleanField(_('Readed'), default=False)
-    messages = models.ForeignKey(Chat)
+    messages = models.ForeignKey(Chat, on_delete=models.CASCADE)
     
     class Meta:
         ordering=['pub_date']
