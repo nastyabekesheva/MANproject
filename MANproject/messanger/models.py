@@ -33,6 +33,7 @@ class Chat(models.Model):
     users = models.ManyToManyField(User)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    messages = models.OneToManyField()
 
     def get_absolute_url(self):
         return 'users:messages', (), {'chat_id': self.pk }
