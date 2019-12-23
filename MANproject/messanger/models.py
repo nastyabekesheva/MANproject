@@ -21,19 +21,19 @@ class Message(models.Model):
     messages = models.TextField(editable="False", default="True")
     pub_date = models.DateTimeField(_('Message date'), default=timezone.now)
     is_readed = models.BooleanField(_('Readed'), default=False)
+    message = models.ForeignKey(Chat)
     
     class Meta:
         ordering=['pub_date']
  
     def __str__(self):
-        return self.messagee
+        return self.message
 
 
 class Chat(models.Model):
     users = models.ManyToManyField(User)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    messages = models.OneToManyField()
 
     def get_absolute_url(self):
         return 'users:messages', (), {'chat_id': self.pk }
