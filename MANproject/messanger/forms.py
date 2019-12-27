@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.forms import ModelForm
-from django.contrib.auth.models import Message
+from .models import Message
 
 class SignUpForm(UserCreationForm):
 
@@ -19,7 +19,8 @@ class SignInForm(AuthenticationForm):
 
 
 class MessageForm(ModelForm):
-    class Meta:
-        model = Message
-        fields = ('message')
-        labels = {'message': ""}
+    
+        class Meta:
+        	model = Message
+        	fields = ('message')
+        	labels = {'message': ""}
