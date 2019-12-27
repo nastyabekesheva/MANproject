@@ -16,30 +16,29 @@ class User(models.Model):
 		self.last_seen = timezone.now()
 
 
-class Message(models.Model):
-    user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
-    messages = models.TextField(editable="False", default="True")
-    pub_date = models.DateTimeField(_('Message date'), default=timezone.now)
-    is_readed = models.BooleanField(_('Readed'), default=False)
-    messages = models.ForeignKey(Chat, on_delete=models.CASCADE)
-    
-    class Meta:
-        ordering=['pub_date']
- 
-    def __str__(self):
-        return self.message
-
-
 class Chat(models.Model):
     users = models.ManyToManyField(User)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    
     def get_absolute_url(self):
         return 'users:messages', (), {'chat_id': self.pk }
 
     def __str__(self):
         return self.message
 
+
+class Message(models.Model):
+    user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
+    message_txt = models.TextField(editable="False", default="True")
+    pub_date = models.DateTimeField(('Message date'), default=timezone.now)
+    is_readed = models.BooleanField(('Readed'), default=False)
+    messages = models.ForeignKey(Chat, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering=['pub_date']
+ 
+    def __str__(self):
+        return self.message
 
 # Create your models here.
