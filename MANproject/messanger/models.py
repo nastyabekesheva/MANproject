@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User as BaseUser
 from django.utils import timezone
-from .forms import SignUpForm
 
 
 class User(models.Model):
@@ -33,12 +32,16 @@ class Message(models.Model):
     message_txt = models.TextField(editable="False", default="True")
     pub_date = models.DateTimeField(('Message date'), default=timezone.now)
     is_readed = models.BooleanField(('Readed'), default=False)
-    messages = models.ForeignKey(Chat, on_delete=models.CASCADE)
+    message = models.ForeignKey(Chat, on_delete=models.CASCADE)
 
     class Meta:
         ordering=['pub_date']
  
     def __str__(self):
         return self.message
+
+
+
+
 
 # Create your models here.
