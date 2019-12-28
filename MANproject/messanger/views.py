@@ -3,7 +3,7 @@ from django.views.generic import View
 from .forms import SignUpForm
 from django.contrib.auth import authenticate
 from .models import User, Chat, Message
-from .forms import SignInForm, MessageForm
+from .forms import SignInForm, MessageForm, SignUpForm
 
 class SignUpView(View):
 	form_class = SignUpForm 
@@ -53,10 +53,10 @@ class StartView(View):
 
 
 class ChatListView(View):
-	model = Chat
-	template_name = 'chatlist.html'
+    model = Chat
+    template_name = 'chatlist.html'
 	
-	def get(self, request, chat_id):
+    def get(self, request, chat_id):
         try:
             chat = Chat.objects.get(id=chat_id)
             if request.user in chat.users.all():
@@ -87,13 +87,16 @@ class ChatListView(View):
 
 
 class DialogsView(View):
+
     def get(self, request):
         chats = Chat.objects.filter(users__in=[request.user.id])
         return render(request, 'users/chatlist.html', {'user_profile': request.user, 'chats': chats})
 
 
 class CreateChatView(View):
+
     def get(self, request, user_id):
+
         chats = Chat.objects.filter(users__in=[request.user.id, user_id], type=Chat.DIALOG).annotate(c=Count('users')).filter(c=2)
         if chats.count() == 0:
             chat = Chat.objects.create()
