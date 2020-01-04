@@ -23,7 +23,7 @@ lass SignUpView(View):
                 raw_password = form.cleaned_data.get('password1')
                 user = authenticate(username=username, password=raw_password)
                 login(request, user)
-                return redirect('sign_up')
+                return redirect('sign_in')
         else:
        	    form = UserCreationForm()
         return render(request, 'messanger/sign_up.html', {'form': form})
