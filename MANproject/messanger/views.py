@@ -13,6 +13,10 @@ class SignUpView(View):
     def get(self, request, *args, **kwargs):
         form = self.form_class()
         return render(request, 'messanger/sign_up.html', {'form': form})
+	
+    def post(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, 'messanger/sign_in.html', {'form': form})
 
     def signup(request):
         if request.method == 'POST':
