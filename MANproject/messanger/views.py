@@ -4,6 +4,7 @@ from .forms import SignUpForm
 from django.contrib.auth import authenticate
 from .models import User, Chat, Message
 from .forms import SignInForm, MessageForm, SignUpForm
+from django.shortcuts import render, redirect
 
 lass SignUpView(View):
     form_class = SignUpForm 
