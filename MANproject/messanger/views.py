@@ -6,7 +6,7 @@ from .models import User, Chat, Message
 from .forms import SignInForm, MessageForm, SignUpForm
 from django.shortcuts import render, redirect
 
-lass SignUpView(View):
+class SignUpView(View):
     form_class = SignUpForm 
     template_name = 'messanger/sign_up.html'
 
