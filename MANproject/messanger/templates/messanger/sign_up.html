@@ -1,22 +1,19 @@
-<style type="text/css">
-	.div1{
-		width: 520px;
-		height: 300px ;
-		border-radius: 10px;
-		border: 1px solid #d9d9d9;
-		font-family: sans-serif;
-		background-color: #f2f2f2;
-		font-size: 14px;
-	}
-</style>
-<div align="center">
-	<div align="center" class="div1">
-		<form>
-			{% csrf_token %}
-			<div>
-				{{ form.as_p }}
-				<input type="submit" value="SignUp">
-			</div>
-		</form>
-	</div>
-</div>
+{% block content %}
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Sign up</button>
+  </form>
+{% endblock %}
