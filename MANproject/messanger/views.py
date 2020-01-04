@@ -5,26 +5,28 @@ from django.contrib.auth import authenticate
 from .models import User, Chat, Message
 from .forms import SignInForm, MessageForm, SignUpForm
 
-class SignUpView(View):
-	form_class = SignUpForm 
-	template_name = 'messanger/sign_up.html'
+lass SignUpView(View):
+    form_class = SignUpForm 
+    template_name = 'messanger/sign_up.html'
 
-	def get(self, request, *args, **kwargs):
-		form = self.form_class()
-		return render(request, self.template_name, {'form': form})
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, 'messanger/sign_up.html', {'form': form})
 
-	def post(self, request, *args, **kwargs):
-		form = self.form_class(request.POST)
-		if form.is_valid():
-			form.save()
-			username = form.cleaned_data.get('username')
-			raw_password = form.cleaned_data.get('password1')
-			baseuser = authenticate(username=username, password=raw_password)
-			user = User.objects.create(user=user)
-			login(request, user)
-			return redirect('main')
-		else:
-			return render(request, self.template_name, {'form': form})
+    def signup(request):
+        if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data.get('username')
+                raw_password = form.cleaned_data.get('password1')
+                user = authenticate(username=username, password=raw_password)
+                login(request, user)
+                return redirect('/sign_up.html')
+        else:
+       	    form = UserCreationForm()
+        return render(request, 'messanger/sign_up.html', {'form': form})
+
 	
 
 class SignInView(View):
