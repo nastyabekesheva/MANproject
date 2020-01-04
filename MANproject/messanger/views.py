@@ -35,25 +35,28 @@ class SignUpView(View):
 	
 
 class SignInView(View):
-	form_class = SignInForm 
-	template_name = 'messanger/sign_in.html'
+    form_class = SignInForm  
+    template_name = 'messanger/sign_up.html'
+    
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
 
-	def get(self, request, *args, **kwargs):
-		form = self.form_class()
-		return render(request, self.template_name, {'form': form})
-
-	def post(self, request, *args, **kwargs):
-		form = self.form_class(request.POST)
-		if form.is_valid():
-			form.save()
-			username = form.cleaned_data.get('username')
-			password = form.cleaned_data.get('password')
-			user = User.objects.create(user=user)
-			login(request, user)
-			return redirect('main')
-		else:
-			return render(request, self.template_name, {'form': form})
-
+    def post(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, 'index.html')
+ 
+    def signin(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = User.objects.create(user=user)
+            login(request, user)
+            return redirect('messanger/index.html')
+        else:
+            return render(request, 'messanger/sign_up.html', {'form': form})
 
 class StartView(View):
 	template_name = 'messanger/start.html'
