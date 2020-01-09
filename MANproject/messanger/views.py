@@ -1,9 +1,9 @@
-from django.shortcuts import render
 from django.views.generic import View
 from .forms import SignUpForm
-from django.contrib.auth import authenticate
 from .models import User, Chat, Message
 from .forms import SignInForm, MessageForm, SignUpForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
 class SignUpView(View):
@@ -13,12 +13,14 @@ class SignUpView(View):
     def get(self, request, *args, **kwargs):
         form = self.form_class()
         return render(request, 'messanger/sign_up.html', {'form': form})
-	
-    def post(self, request, *args, **kwargs):
-        form = self.form_class()
-        return render(request, 'messanger/sign_in.html', {'form': form})
 
-    def signup(request):
+    #def post(self, request, *args, **kwargs):
+        #form = self.form_class()
+        #return render(request, 'messanger/sign_in.html', {'form': form})
+
+
+    def post(request):
+        form = self.form_class()
         if request.method == 'POST':
             form = UserCreationForm(request.POST)
             if form.is_valid():
@@ -40,13 +42,9 @@ class SignInView(View):
     
     def get(self, request, *args, **kwargs):
         form = self.form_class()
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class()
-        return render(request, 'index.html')
+        return render(request, 'messanger/sign_up.html', {'form': form})
  
-    def signin(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
@@ -57,6 +55,7 @@ class SignInView(View):
             return redirect('messanger/index.html')
         else:
             return render(request, 'messanger/sign_up.html', {'form': form})
+
 
 class StartView(View):
 	template_name = 'messanger/start.html'
